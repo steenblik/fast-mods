@@ -42,9 +42,9 @@ module "dev-spoke-project" {
   }
   metric_scopes = [module.landing-project.project_id]
   # optionally delegate a fixed set of IAM roles to selected principals
-  iam = {
-    (var.custom_roles.project_iam_viewer) = try(local.iam_viewer_principals["dev"], [])
-  }
+  #iam = {
+  #  (var.custom_roles.project_iam_viewer) = try(local.iam_viewer_principals["dev"], [])
+  #}
   iam_bindings = (
     lookup(local.iam_delegated_principals, "dev", null) == null ? {} : {
       sa_delegated_grants = {
@@ -61,9 +61,9 @@ module "dev-spoke-project" {
       }
     }
   )
-  tag_bindings = local.has_env_folders ? {} : {
-    environment = local.env_tag_values["dev"]
-  }
+  #tag_bindings = local.has_env_folders ? {} : {
+  #  environment = local.env_tag_values["dev"]
+  #}
 }
 
 module "dev-spoke-vpc" {

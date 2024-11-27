@@ -36,9 +36,9 @@ module "landing-project" {
   shared_vpc_host_config = {
     enabled = true
   }
-  tag_bindings = local.has_env_folders ? {} : {
-    environment = local.env_tag_values["prod"]
-  }
+  #tag_bindings = local.has_env_folders ? {} : {
+  #  environment = local.env_tag_values["prod"]
+  #}
 }
 
 module "landing-vpc" {

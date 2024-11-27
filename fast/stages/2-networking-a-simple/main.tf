@@ -17,10 +17,10 @@
 # tfdoc:file:description Networking folder and hierarchical policy.
 
 locals {
-  env_tag_values = {
-    for k, v in var.environments :
-    k => var.tag_values["environment/${v.tag_name}"]
-  }
+  #env_tag_values = {
+  #  for k, v in var.environments :
+  #  k => var.tag_values["environment/${v.tag_name}"]
+  #}
   has_env_folders = var.folder_ids.networking-dev != null
   iam_delegated = join(",", formatlist("'%s'", [
     "roles/composer.sharedVpcAgent",

@@ -76,11 +76,11 @@ resource "local_file" "tfvars" {
   content         = jsonencode(local.tfvars)
 }
 
-resource "google_storage_bucket_object" "tfvars" {
-  bucket  = var.automation.outputs_bucket
-  name    = "tfvars/2-networking.auto.tfvars.json"
-  content = jsonencode(local.tfvars)
-}
+#resource "google_storage_bucket_object" "tfvars" {
+#  bucket  = var.automation.outputs_bucket
+#  name    = "tfvars/2-networking.auto.tfvars.json"
+#  content = jsonencode(local.tfvars)
+#}
 
 # outputs
 
