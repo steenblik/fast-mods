@@ -62,3 +62,36 @@ resource "google_network_connectivity_spoke" "onprem-primary-vpn" {
     uris                       = [for _, v in module.landing-to-onprem-primary-vpn[0].tunnel_self_links : v]
   }
 }
+
+// Interconnect specific stuff
+resource "google_network_connectivity_spoke" "onprem-primary-interconnect" {
+  name        = "interconnect-attachment-spoke-primary"
+  project     = module.landing-project.project_id
+  location    = var.regions.primary
+  description = "A sample spoke with a linked Interconnect Attachment in ${var.regions.primary}"
+  labels = {
+    label-one = "value-one"
+  }
+  hub = google_network_connectivity_hub.default[0].id
+  linked_interconnect_attachments {
+    uris                       = [module.example-va-a-ew3.id, module.example-va-b-ew3.id]
+    site_to_site_data_transfer = true
+    include_import_ranges      = ["ALL_IPV4_RANGES"]
+  }
+}
+
+resource "google_network_connectivity_spoke" "onprem-secondary-interconnect" {
+  name        = "interconnect-attachment-spoke-secondary"
+  project     = module.landing-project.project_id
+  location    = var.regions.secondary
+  description = "A sample spoke with a linked Interconnect Attachment in ${var.regions.secondary}"
+  labels = {
+    label-one = "value-one"
+  }
+  hub = google_network_connectivity_hub.default[0].id
+  linked_interconnect_attachments {
+    uris                       = [module.example-va-a-ew6.id, module.example-va-b-ew6.id]
+    site_to_site_data_transfer = true
+    include_import_ranges      = ["ALL_IPV4_RANGES"]
+  }
+}
